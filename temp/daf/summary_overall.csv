@@ -1,0 +1,2 @@
+runs,skipped,avg_free_cells,avg_commands,min_commands,max_commands,avg_solve_ms,avg_adaptive_moves,avg_farthest_fallbacks
+600,0,6288.790,7179.577,374,74960,13.616108,1055.450,11.778

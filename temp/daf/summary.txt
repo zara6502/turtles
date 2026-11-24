@@ -1,0 +1,10 @@
+DAF sweep summary
+Runs requested: 600
+Failed runs: 0
+
+runs,skipped,avg_free_cells,avg_commands,min_commands,max_commands,avg_solve_ms,avg_adaptive_moves,avg_farthest_fallbacks
+600,0,6288.790,7179.577,374,74960,13.616108,1055.450,11.778
+
+Per-group summary: daf_600/summary_by_group.csv
+Adaptive-series summary: daf_600/series_summary.csv
+Full per-step trace: daf_600/trace.csv

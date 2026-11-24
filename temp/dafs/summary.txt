@@ -1,0 +1,10 @@
+DAF vs DAFs comparison
+Valid paired mazes: 600
+Average commands — DAF:  7179.58
+Average commands — DAFs: 7209.58
+Mean delta (DAFs − DAF): 30.00 commands (-3.97%)
+Median delta: -81.00 commands
+Wins — DAFs: 383; DAF: 216; ties: 1
+Average solver time — DAF: 16.022 ms; DAFs: 11.859 ms
+
+Negative DAFs − DAF delta means DAFs used fewer commands.

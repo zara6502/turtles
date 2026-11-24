@@ -1,0 +1,2 @@
+paired_runs,avg_commands_DAF,avg_commands_DAFs,avg_delta_DAFs_minus_DAF,median_delta_DAFs_minus_DAF,avg_delta_pct_of_DAF,DAFs_wins,DAF_wins,ties,avg_solve_ms_DAF,avg_solve_ms_DAFs
+600,7179.576666666667,7209.578333333333,30.001666666666665,-81.0,-3.9678590326433363,383,216,1,16.022443333333335,11.859311666666667

@@ -1,0 +1,10 @@
+NodeFarthest family summary
+Valid paired mazes: 600
+Incomplete/invalid mazes: 0
+farthest: avg commands=7634.31; wins=215
+nodefarthest: avg commands=7707.61; wins=118
+nodefarthest_articulation: avg commands=7714.88; wins=155
+NodeFarthest - Farthest mean delta: 73.30
+Articulation - Farthest mean delta: 80.57
+NodeFarthest improved/worsened mazes: 260/275
+Articulation improved/worsened mazes: 265/313

@@ -1,0 +1,8 @@
+DAF family summary
+Valid paired mazes: 600
+daf: avg commands=7179.58; wins=109
+dafs: avg commands=7209.58; wins=193
+dafds: avg commands=6810.20; wins=298
+DAFs - DAF mean delta: 30.00
+DAFds - DAF mean delta: -369.38
+DAFds - DAFs mean delta: -399.38

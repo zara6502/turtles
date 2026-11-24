@@ -1,0 +1,8 @@
+sizes=51x51,101x101,151x151
+braids=0,10,20,35
+seed_from=1
+seed_to=50
+seed_step=1
+dafds_stagnation=5
+plot_sample=101x101,b20,s1
+trace_mode=adaptive

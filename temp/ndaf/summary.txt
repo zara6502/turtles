@@ -1,0 +1,19 @@
+NDAF nonlinear-distance sweep
+Successful solver runs: 7200 / 7200
+Invalid/incomplete runs: 0
+Paired maze-q comparisons: 6000
+
+Delta is NDAF commands minus baseline commands; negative is better.
+NDAF q=1.00 should match DAFds exactly.
+
+Overall:
+q=0.10: avg=7474.98, median=2870.50, vs DAFds +664.78 (W/L/T 115/484/1), vs Farthest -159.33, fallbacks avg=17.01, solve=6.404 ms
+q=0.20: avg=7437.13, median=2796.50, vs DAFds +626.93 (W/L/T 132/468/0), vs Farthest -197.18, fallbacks avg=15.65, solve=6.991 ms
+q=0.30: avg=7409.35, median=2792.00, vs DAFds +599.16 (W/L/T 126/473/1), vs Farthest -224.96, fallbacks avg=14.19, solve=7.648 ms
+q=0.40: avg=7378.19, median=2735.00, vs DAFds +568.00 (W/L/T 135/463/2), vs Farthest -256.12, fallbacks avg=12.44, solve=8.387 ms
+q=0.50: avg=7381.69, median=2773.00, vs DAFds +571.49 (W/L/T 142/458/0), vs Farthest -252.62, fallbacks avg=10.47, solve=9.276 ms
+q=0.60: avg=7358.65, median=2681.50, vs DAFds +548.45 (W/L/T 133/466/1), vs Farthest -275.66, fallbacks avg=8.54, solve=10.233 ms
+q=0.70: avg=7393.03, median=2668.00, vs DAFds +582.83 (W/L/T 136/464/0), vs Farthest -241.28, fallbacks avg=6.47, solve=11.430 ms
+q=0.80: avg=7407.97, median=2800.00, vs DAFds +597.77 (W/L/T 135/464/1), vs Farthest -226.34, fallbacks avg=4.46, solve=13.009 ms
+q=0.90: avg=7408.98, median=2935.00, vs DAFds +598.79 (W/L/T 116/482/2), vs Farthest -225.33, fallbacks avg=3.25, solve=14.774 ms
+q=1.00: avg=6810.20, median=2387.00, vs DAFds +0.00 (W/L/T 0/0/600), vs Farthest -824.11, fallbacks avg=11.38, solve=8.805 ms

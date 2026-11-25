@@ -1,0 +1,15 @@
+NodeClusterFarthest family summary
+Valid paired mazes: 600
+Incomplete/invalid mazes: 0
+Farthest: avg commands=7634.31; median=3103.00; wins=161
+NodeFarthest: avg commands=7707.61; median=3170.00; wins=71
+  delta vs Farthest: mean=+73.30; median=+0.00; improved/worsened/tied=260/275/65
+NodeFarthest articulation: avg commands=7714.88; median=3144.00; wins=104
+  delta vs Farthest: mean=+80.57; median=+8.50; improved/worsened/tied=265/313/22
+NodeClusterFarthest: avg commands=9009.44; median=3182.00; wins=102
+  delta vs Farthest: mean=+1375.13; median=+111.00; improved/worsened/tied=204/393/3
+NodeClusterFarthest articulation: avg commands=9129.23; median=3373.00; wins=42
+  delta vs Farthest: mean=+1494.92; median=+224.00; improved/worsened/tied=150/446/4
+Ties for best: 120
+NodeClusterFarthest diagnostics: selections=23656; fallbacks=1056; mean active behind per selection=68.24
+NodeClusterFarthest articulation diagnostics: selections=19159; fallbacks=2562; mean active behind per selection=53.33

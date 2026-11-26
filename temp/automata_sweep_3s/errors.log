@@ -1,0 +1,6 @@
+[15x15_b35_s1] status=LIMIT dafds_verify=YES state limit reached
+[15x15_b0_s3] status=LIMIT dafds_verify=YES state limit reached
+[15x15_b35_s3] status=LIMIT dafds_verify=YES state limit reached
+[15x15_b35_s4] status=LIMIT dafds_verify=YES state limit reached
+[15x15_b0_s5] status=LIMIT dafds_verify=YES state limit reached
+[15x15_b10_s5] status=LIMIT dafds_verify=YES state limit reached

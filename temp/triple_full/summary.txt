@@ -1,0 +1,48 @@
+Maze automata benchmark summary
+===============================
+Generated maps: 80
+Elapsed: 487.3 s
+Per-search time limit: 2.000 s
+A* state cap per mode: 250000
+Triple automaton cap: 2000000 stored states
+Triple automaton build time cap: 2.000 s/map
+Landmarks per state: 12
+Fixed initial triple probes: 8, 0.150 s/probe, 50000 states/probe
+
+All maps have unique SHA-256 hashes. DAFds is a valid incumbent, not an optimality claim.
+LB = max(initial admissible heuristic, frontier lower bound, and safe bound for unfinished successors).
+gap = incumbent commands - LB; commands is always backed by a verified DAFds or A* path.
+Triple BFS is reverse BFS from (EXIT,EXIT,EXIT). When capped, unvisited triples use the
+provable radius bound from the last complete BFS layer. Fixed initial triples are solved with
+small triple-state A* probes; their lower bounds are reduced by the current g-depth, which is
+admissible because every full solution must also synchronize each selected starting triple.
+Heuristics use farthest-point sampled active cells; max over sampled subsets is admissible.
+
+21x21: 20 maps, free cells 198..204
+DAFds baseline: avg_commands=256.45, avg_time=0.0001s
+mode      optimal  limited  avg_commands  avg_gap  avg_expanded  avg_search_s  avg_h_s  avg_precompute_s
+pair       2/20   18/20        245.75   145.15      63936.5        0.944    0.723   136115563.6         0.0            0.113
+triple     8/20   12/20        202.75    97.45      47681.1        0.980    0.804   121924407.8  37792217.7            0.113
+hybrid     8/20   12/20        202.75    97.45      47681.1        1.000    0.827   121924407.8  37792217.7            0.113
+
+31x31: 20 maps, free cells 448..460
+DAFds baseline: avg_commands=632.00, avg_time=0.0003s
+mode      optimal  limited  avg_commands  avg_gap  avg_expanded  avg_search_s  avg_h_s  avg_precompute_s
+pair       0/20   20/20        632.00   438.95      70877.1        1.648    1.291   282511514.3         0.0            0.694
+triple     0/20   20/20        632.00   435.35      73186.9        1.976    1.708    95516420.7  51172341.0            0.694
+hybrid     0/20   20/20        632.00   433.20      44766.6        2.000    1.786   178456016.2  34820236.0            0.694
+
+51x51: 20 maps, free cells 1248..1275
+DAFds baseline: avg_commands=1813.60, avg_time=0.0009s
+mode      optimal  limited  avg_commands  avg_gap  avg_expanded  avg_search_s  avg_h_s  avg_precompute_s
+pair       0/20   20/20       1813.60  1412.15      70245.6        1.983    1.459   277919870.5         0.0            0.725
+triple     0/20   20/20       1813.60  1411.50      53673.2        2.000    1.747   136980646.6  39038175.0            0.725
+hybrid     0/20   20/20       1813.60  1409.65      28894.0        2.000    1.812   114654952.0  21540640.0            0.725
+
+101x101: 20 maps, free cells 4998..5097
+DAFds baseline: avg_commands=8265.40, avg_time=0.0053s
+mode      optimal  limited  avg_commands  avg_gap  avg_expanded  avg_search_s  avg_h_s  avg_precompute_s
+pair       0/20   20/20       8265.40  7222.55      35921.2        2.000    1.421   132349289.0         0.0            1.304
+triple     0/20   20/20       8265.40  7222.25      26022.7        2.000    1.780   103509666.8  19446735.0            1.304
+hybrid     0/20   20/20       8265.40  7220.65      21954.4        2.000    1.712    81965140.3  15399087.0            1.304
+

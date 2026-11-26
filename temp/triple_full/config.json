@@ -1,0 +1,38 @@
+{
+  "sizes": [
+    [
+      21,
+      21
+    ],
+    [
+      31,
+      31
+    ],
+    [
+      51,
+      51
+    ],
+    [
+      101,
+      101
+    ]
+  ],
+  "per_size": 20,
+  "braids": [
+    0,
+    10,
+    20,
+    35
+  ],
+  "seed_start": 1,
+  "time_limit_per_search_sec": 2.0,
+  "max_states_per_search": 250000,
+  "pair_cap": 50000000,
+  "triple_cap": 2000000,
+  "triple_build_time_sec": 2.0,
+  "sample": 12,
+  "seed_triples": 8,
+  "seed_max_states": 50000,
+  "seed_time_limit_sec": 0.15,
+  "compiler": "g++"
+}

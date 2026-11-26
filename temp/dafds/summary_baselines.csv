@@ -1,0 +1,3 @@
+algorithm,valid_mazes,avg_commands,median_commands,avg_solve_ms
+DAF,600,7179.577,2703.5,7.774
+DAFs,600,7209.578,2502.5,3.439

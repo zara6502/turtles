@@ -1,6 +1,6 @@
 sizes=51x51,101x101,151x151
 braids=0,10,20,35
-seed_from=1
-seed_to=50
+seed_from=51
+seed_to=100
 seed_step=1
-limits=1,2,3,5,8,13,21
+limits=3,4,5,6,7,8

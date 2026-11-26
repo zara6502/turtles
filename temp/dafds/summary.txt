@@ -1,16 +1,15 @@
 DAFds stagnation-limit sweep
-Valid solver runs: 5400 / 5400
+Valid solver runs: 4800 / 4800
 Mazes with both baseline controls: 600
 
 Baselines:
-  DAF: avg=7179.577, median=2703.500, n=600
-  DAFs: avg=7209.578, median=2502.500, n=600
+  DAF: avg=7146.047, median=2724.500, n=600
+  DAFs: avg=7196.402, median=2467.500, n=600
 
 DAFds limits:
-  limit= 1: avg=7207.937, median=2485.000, vs DAF +28.360 (W/L/T 385/215/0), vs DAFs -1.642 (W/L/T 45/52/503), adaptive=533.0, fallbacks=14.67, fallback route avg=455.11
-  limit= 2: avg=7065.770, median=2506.500, vs DAF -113.807 (W/L/T 408/192/0), vs DAFs -143.808 (W/L/T 346/254/0), adaptive=797.9, fallbacks=12.92, fallback route avg=485.19
-  limit= 3: avg=6924.880, median=2453.000, vs DAF -254.697 (W/L/T 417/183/0), vs DAFs -284.698 (W/L/T 355/244/1), adaptive=922.5, fallbacks=12.02, fallback route avg=499.37
-  limit= 5: avg=6810.197, median=2387.000, vs DAF -369.380 (W/L/T 437/163/0), vs DAFs -399.382 (W/L/T 365/234/1), adaptive=1003.9, fallbacks=11.38, fallback route avg=510.37
-  limit= 8: avg=6852.827, median=2451.000, vs DAF -326.750 (W/L/T 420/179/1), vs DAFs -356.752 (W/L/T 340/258/2), adaptive=1035.2, fallbacks=11.37, fallback route avg=511.66
-  limit=13: avg=6847.793, median=2426.500, vs DAF -331.783 (W/L/T 417/183/0), vs DAFs -361.785 (W/L/T 332/267/1), adaptive=1068.3, fallbacks=11.22, fallback route avg=515.03
-  limit=21: avg=6891.640, median=2473.500, vs DAF -287.937 (W/L/T 387/212/1), vs DAFs -317.938 (W/L/T 294/305/1), adaptive=1111.6, fallbacks=11.22, fallback route avg=514.93
+  limit= 3: avg=6868.187, median=2424.000, vs DAF -277.860 (W/L/T 433/165/2), vs DAFs -328.215 (W/L/T 339/260/1), adaptive=931.3, fallbacks=11.89, fallback route avg=499.32
+  limit= 4: avg=6894.047, median=2414.500, vs DAF -252.000 (W/L/T 420/180/0), vs DAFs -302.355 (W/L/T 342/256/2), adaptive=982.7, fallbacks=11.59, fallback route avg=510.26
+  limit= 5: avg=6867.058, median=2446.000, vs DAF -278.988 (W/L/T 415/185/0), vs DAFs -329.343 (W/L/T 322/277/1), adaptive=1015.2, fallbacks=11.57, fallback route avg=505.56
+  limit= 6: avg=6891.767, median=2408.000, vs DAF -254.280 (W/L/T 411/189/0), vs DAFs -304.635 (W/L/T 331/268/1), adaptive=1027.5, fallbacks=11.44, fallback route avg=512.84
+  limit= 7: avg=6875.487, median=2451.500, vs DAF -270.560 (W/L/T 410/189/1), vs DAFs -320.915 (W/L/T 299/298/3), adaptive=1041.6, fallbacks=11.50, fallback route avg=507.15
+  limit= 8: avg=6899.365, median=2410.000, vs DAF -246.682 (W/L/T 401/199/0), vs DAFs -297.037 (W/L/T 316/281/3), adaptive=1041.1, fallbacks=11.42, fallback route avg=513.06

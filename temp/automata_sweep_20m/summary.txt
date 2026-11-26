@@ -1,0 +1,34 @@
+Maze Automata paired benchmark
+
+Generator: recursive randomized DFS + dead-end braiding (v1)
+NOTE: this is a newly generated deterministic corpus; it is not claimed to reproduce older local mazes.
+Settings: {"braids": [0, 10, 20, 35], "generator": "recursive-backtracker+deadend-braid", "generator_version": 1, "keep_paths": false, "limit": 5, "max_mazes": null, "max_pair_states": 70000000, "max_states": 20000000, "process_timeout": 240.0, "seed_from": 1, "seed_to": 5, "sizes": [[15, 15]], "time_limit": 30.0}
+Rows recorded: 20 / 20
+Elapsed this invocation: 134.6s
+
+15x15_b0
+mazes=5 optimal=5 limits=0 pair_skipped=0 other=0
+  DAFds: avg=136.00, median=150.0
+  paired exact: A* avg=66.00, median=68.0; DAFds avg=136.00, median=150.0; A* saving avg=70.00; wins/losses/ties=5/0/0
+
+15x15_b10
+mazes=5 optimal=5 limits=0 pair_skipped=0 other=0
+  DAFds: avg=133.60, median=135.0
+  paired exact: A* avg=62.40, median=68.0; DAFds avg=133.60, median=135.0; A* saving avg=71.20; wins/losses/ties=5/0/0
+
+15x15_b20
+mazes=5 optimal=5 limits=0 pair_skipped=0 other=0
+  DAFds: avg=142.00, median=145.0
+  paired exact: A* avg=59.00, median=57.0; DAFds avg=142.00, median=145.0; A* saving avg=83.00; wins/losses/ties=5/0/0
+
+15x15_b35
+mazes=5 optimal=4 limits=1 pair_skipped=0 other=0
+  DAFds: avg=134.20, median=134.0
+  paired exact: A* avg=63.75, median=68.0; DAFds avg=138.00, median=142.5; A* saving avg=74.25; wins/losses/ties=4/0/0
+  limited lower bound: n=1; avg remaining gap to DAFds=67.00
+
+ALL
+mazes=20 optimal=19 limits=1 pair_skipped=0 other=0
+  DAFds: avg=136.45, median=140.0
+  paired exact: A* avg=62.74, median=68.0; DAFds avg=137.37, median=145.0; A* saving avg=74.63; wins/losses/ties=19/0/0
+  limited lower bound: n=1; avg remaining gap to DAFds=67.00

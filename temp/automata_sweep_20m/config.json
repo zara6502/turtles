@@ -1,0 +1,25 @@
+{
+  "generator": "recursive-backtracker+deadend-braid",
+  "generator_version": 1,
+  "seed_from": 1,
+  "seed_to": 5,
+  "sizes": [
+    [
+      15,
+      15
+    ]
+  ],
+  "braids": [
+    0,
+    10,
+    20,
+    35
+  ],
+  "limit": 5,
+  "max_states": 20000000,
+  "time_limit": 30.0,
+  "max_pair_states": 70000000,
+  "process_timeout": 240.0,
+  "max_mazes": null,
+  "keep_paths": false
+}

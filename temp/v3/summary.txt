@@ -1,0 +1,53 @@
+Maze automata benchmark summary
+===============================
+Generated maps: 80
+Elapsed: 482.9 s
+Diagnostic build ID expected: maze-pair-triple-hybrid-diag-v3-20261126
+Per-search time limit: 2.000 s
+Triple automaton requested/effective cap: 2000000 stored states (checked against C++ JSON on every map)
+A* state cap per mode: 250000 (separate from triple-table cap)
+Triple automaton build time cap: 2.000 s/map
+Landmarks per state: 12
+Fixed initial triple probes: 8, 0.150 s/probe, 50000 states/probe
+
+All maps have unique SHA-256 hashes. DAFds is a valid incumbent, not an optimality claim.
+LB = max(initial admissible heuristic, frontier lower bound, and safe bound for unfinished successors).
+gap = incumbent commands - LB; commands is always backed by a verified DAFds or A* path.
+Triple BFS is reverse BFS from (EXIT,EXIT,EXIT). When capped, unvisited triples use the
+provable radius bound from the last complete BFS layer. Fixed initial triples are solved with
+small triple-state A* probes; their lower bounds are reduced by the current g-depth, which is
+admissible because every full solution must also synchronize each selected starting triple.
+Heuristics use farthest-point sampled active cells; max over sampled subsets is admissible.
+
+21x21: 20 maps, free cells 198..204
+DAFds baseline: avg_commands=256.45, avg_time=0.0001s
+Triple table: avg_stored=1378146, max_stored=1456935, avg_cap_used=68.9%
+mode      optimal  limited  avg_commands  avg_gap  avg_expanded  avg_search_s  avg_h_s  avg_precompute_s
+pair       2/20   18/20        245.75   145.15      63936.5        0.932    0.722   136115563.6         0.0            0.111
+triple     8/20   12/20        202.75    97.45      47681.1        0.970    0.803   121924407.8  37792217.7            0.111
+hybrid     8/20   12/20        202.75    97.45      47681.1        0.995    0.826   121924407.8  37792217.7            0.111
+
+31x31: 20 maps, free cells 448..460
+DAFds baseline: avg_commands=632.00, avg_time=0.0003s
+Triple table: avg_stored=2000000, max_stored=2000000, avg_cap_used=100.0%
+mode      optimal  limited  avg_commands  avg_gap  avg_expanded  avg_search_s  avg_h_s  avg_precompute_s
+pair       0/20   20/20        632.00   438.95      70877.1        1.601    1.274   282511514.3         0.0            0.655
+triple     0/20   20/20        632.00   435.35      75600.9        1.947    1.684    98600868.8  52859862.0            0.655
+hybrid     0/20   20/20        632.00   433.25      46604.9        2.001    1.787   185216392.9  36243031.0            0.655
+
+51x51: 20 maps, free cells 1248..1275
+DAFds baseline: avg_commands=1813.60, avg_time=0.0009s
+Triple table: avg_stored=2000000, max_stored=2000000, avg_cap_used=100.0%
+mode      optimal  limited  avg_commands  avg_gap  avg_expanded  avg_search_s  avg_h_s  avg_precompute_s
+pair       0/20   20/20       1813.60  1412.75      70266.8        1.978    1.469   277991360.1         0.0            0.714
+triple     0/20   20/20       1813.60  1411.50      55009.2        2.000    1.751   140309706.0  39999124.0            0.714
+hybrid     0/20   20/20       1813.60  1409.55      29310.8        2.000    1.812   116295113.2  21848783.0            0.714
+
+101x101: 20 maps, free cells 4998..5097
+DAFds baseline: avg_commands=8265.40, avg_time=0.0053s
+Triple table: avg_stored=2000000, max_stored=2000000, avg_cap_used=100.0%
+mode      optimal  limited  avg_commands  avg_gap  avg_expanded  avg_search_s  avg_h_s  avg_precompute_s
+pair       0/20   20/20       8265.40  7222.85      36599.2        2.000    1.413   134848144.4         0.0            1.252
+triple     0/20   20/20       8265.40  7222.25      26790.8        2.000    1.777   106597828.0  20026919.0            1.252
+hybrid     0/20   20/20       8265.40  7220.55      22361.7        2.000    1.708    83506937.5  15688750.0            1.252
+

@@ -1,0 +1,48 @@
+{
+  "sizes": [
+    [
+      21,
+      21
+    ],
+    [
+      31,
+      31
+    ],
+    [
+      51,
+      51
+    ],
+    [
+      101,
+      101
+    ]
+  ],
+  "per_size": 20,
+  "braids": [
+    0,
+    10,
+    20,
+    35
+  ],
+  "seed_start": 1,
+  "time_limit_per_search_sec": 2.0,
+  "max_states_per_search": 250000,
+  "pair_cap": 50000000,
+  "triple_cap": 2000000,
+  "triple_build_time_sec": 2.0,
+  "sample": 12,
+  "seed_triples": 8,
+  "seed_max_states": 50000,
+  "seed_time_limit_sec": 0.15,
+  "compiler": "C:\\msys64\\ucrt64\\bin/g++.EXE",
+  "build_id_expected": "maze-pair-triple-hybrid-diag-v3-20261126",
+  "source_sha256": "f0b20373143293312540c71ff6eb13e2d780f765ee68126e3025b9d8d1a81024",
+  "binary_sha256": "365aa4bb14cf92ea825f57b81f7a2c0801d71abe3659ff93c34fd971e453c74b",
+  "diagnostic_checks": [
+    "build_id",
+    "requested_triple_cap",
+    "effective_triple_cap",
+    "stored_count_vs_cap",
+    "unique_maze_sha256"
+  ]
+}

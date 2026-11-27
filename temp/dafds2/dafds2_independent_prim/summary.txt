@@ -1,0 +1,43 @@
+DAFds vs DAFds2 benchmark summary
+==================================
+Build ID: dafds2-first-event-cut-20261127
+Generator: prim
+Seed offset: 0
+Maps: 80 (20 per size requested)
+Stagnation limit: 5
+DAFds2 change: stop each Farthest fallback immediately after the first step
+that causes at least one exit or at least one collision/merge.
+All reported paths were independently simulated by the Python runner.
+
+21x21: 20 maps, free cells 199..211
+  DAFds : avg commands=199.6, adaptive=145.9, fallback=53.6, fallback episodes=1.70
+  DAFds2: avg commands=204.4, adaptive=171.8, fallback=32.6, fallback episodes=2.35
+  savings: avg=-4.8 commands, median=0.0, improved/tied/worse=4/7/9
+  DAFds first event: avg step=15.08; theoretical tail after first event=25.2 commands/map
+  DAFds2 fallback triggers: exit=15, merge=32, both=0
+
+31x31: 20 maps, free cells 449..476
+  DAFds : avg commands=401.2, adaptive=259.1, fallback=142.2, fallback episodes=2.85
+  DAFds2: avg commands=408.4, adaptive=321.2, fallback=87.1, fallback episodes=4.55
+  savings: avg=-7.1 commands, median=-5.0, improved/tied/worse=7/3/10
+  DAFds first event: avg step=21.16; theoretical tail after first event=87.9 commands/map
+  DAFds2 fallback triggers: exit=25, merge=66, both=0
+
+51x51: 20 maps, free cells 1249..1323
+  DAFds : avg commands=1031.8, adaptive=444.4, fallback=587.4, fallback episodes=7.30
+  DAFds2: avg commands=958.8, adaptive=679.5, fallback=279.3, fallback episodes=15.20
+  savings: avg=73.0 commands, median=62.5, improved/tied/worse=14/0/6
+  DAFds first event: avg step=27.57; theoretical tail after first event=378.9 commands/map
+  DAFds2 fallback triggers: exit=55, merge=249, both=0
+
+101x101: 20 maps, free cells 4999..5293
+  DAFds : avg commands=3043.1, adaptive=851.2, fallback=2191.8, fallback episodes=15.35
+  DAFds2: avg commands=2652.1, adaptive=1627.6, fallback=1024.5, fallback episodes=49.00
+  savings: avg=390.9 commands, median=390.5, improved/tied/worse=17/0/3
+  DAFds first event: avg step=44.04; theoretical tail after first event=1509.5 commands/map
+  DAFds2 fallback triggers: exit=87, merge=892, both=1
+
+TOTAL
+  improved/tied/worse: 42/10/28 of 80
+  average saving: 113.01 commands/map (9.67% of DAFds command count)
+  sum of commands: DAFds=93513, DAFds2=84472

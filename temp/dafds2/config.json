@@ -1,0 +1,36 @@
+{
+  "build_id": "dafds2-first-event-cut-20261127",
+  "source_sha256": "f08ef769ea19f11848e690a09482f296854c090ebca3df18d1acdc982300564d",
+  "binary_sha256": "f3d97bc60a3821cd44f3660244c449d212cc219df8d8e57bff5877b449c27bda",
+  "sizes": [
+    [
+      21,
+      21
+    ],
+    [
+      31,
+      31
+    ],
+    [
+      51,
+      51
+    ],
+    [
+      101,
+      101
+    ]
+  ],
+  "per_size": 20,
+  "braids_percent": [
+    0,
+    10,
+    20,
+    35
+  ],
+  "stagnation_limit": 5,
+  "max_commands_safety_limit": 100000000,
+  "generator": "randomized recursive-backtracker DFS on odd-cell lattice, followed by dead-end braiding",
+  "unique_hashes": 80,
+  "completed_records": 80,
+  "elapsed_seconds": 6.978
+}

@@ -19,16 +19,16 @@
   },
   "cases": [
     {
-      "name": "dfs_rect_35x63",
+      "name": "dfs_rect_36x64",
       "algorithm": "dfs",
-      "width": 35,
-      "height": 63
+      "width": 36,
+      "height": 64
     },
     {
-      "name": "prim_rect_63x35",
+      "name": "prim_rect_64x36",
       "algorithm": "prim",
-      "width": 63,
-      "height": 35
+      "width": 64,
+      "height": 36
     },
     {
       "name": "rooms_square_35x35",
@@ -37,5 +37,5 @@
       "height": 35
     }
   ],
-  "description": "Quick smoke: exact 35x63 and 63x35 output maps plus a 35x35 map."
+  "description": "Quick smoke: exact 36x64 and 64x36 even rectangular maps plus a 35x35 square map."
 }

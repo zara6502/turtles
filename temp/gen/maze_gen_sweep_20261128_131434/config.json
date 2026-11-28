@@ -1,0 +1,31 @@
+{
+  "build_id": "maze-gen-dafds-dafds2-bench-20261128",
+  "generator": "C:/work/maze-gen/build/maze-gen.exe",
+  "solver": "C:/work/turtles/temp/dafds2/build/maze_gen_bench.exe",
+  "solver_source": "C:/work/turtles/temp/dafds2/maze_gen_bench.cpp",
+  "sizes": [
+    21,
+    31,
+    51,
+    101
+  ],
+  "count_per_combination": 20,
+  "braids": [
+    0,
+    10,
+    20,
+    35
+  ],
+  "algorithms": [
+    "dfs",
+    "prim",
+    "rooms"
+  ],
+  "base_seed": 20261128,
+  "stagnation_limit": 1,
+  "room_density": 40,
+  "room_min": 3,
+  "room_max": 8,
+  "exit_side": "any",
+  "keep_mazes": false
+}

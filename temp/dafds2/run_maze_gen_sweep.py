@@ -340,6 +340,16 @@ def main() -> int:
                     if not meta_path.is_file():
                         raise FileNotFoundError(f"maze-gen did not create metadata JSON: {meta_path}")
                     metadata = json.loads(meta_path.read_text(encoding="utf-8"))
+                    if metadata.get("format_version") != 2:
+                        raise RuntimeError(
+                            f"unsupported maze metadata version in {meta_path}; rebuild maze-gen from latest main"
+                        )
+                    if int(metadata.get("width", -1)) != job["width"] or int(metadata.get("height", -1)) != job["height"]:
+                        raise RuntimeError(
+                            f"maze metadata dimensions do not match JSON case {job['case_name']}: "
+                            f"expected {job['width']}x{job['height']}, got "
+                            f"{metadata.get('width')}x{metadata.get('height')}"
+                        )
                     map_filename = metadata.get("map_file")
                     if not isinstance(map_filename, str) or not map_filename:
                         raise RuntimeError(

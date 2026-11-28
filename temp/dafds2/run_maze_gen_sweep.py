@@ -25,7 +25,7 @@ SOURCE_FILE = SCRIPT_DIR / "maze_gen_bench.cpp"
 DEFAULT_CONFIG = SCRIPT_DIR / "maze_gen_bench_config.json"
 
 RUN_FIELDS = [
-    "case_name", "generator", "cell_width", "cell_height", "map_width", "map_height",
+    "case_name", "generator", "width", "height", "cell_width", "cell_height",
     "braid", "room_density", "maze_index", "maze_seed", "exit_side", "passages",
     "map_sha256", "metadata_file", "map_file", "free_cells",
     "dafds_commands", "dafds_adaptive", "dafds_fallbacks", "dafds_ms", "dafds_verify",
@@ -33,11 +33,11 @@ RUN_FIELDS = [
     "saving_commands", "saving_percent",
 ]
 EVENT_FIELDS = [
-    "case_name", "generator", "cell_width", "cell_height", "braid",
+    "case_name", "generator", "width", "height", "braid",
     "maze_index", "maze_seed", "episode", "first_event_step", "event_type",
 ]
 SUMMARY_FIELDS = [
-    "case_name", "generator", "cell_width", "cell_height", "braid", "mazes",
+    "case_name", "generator", "width", "height", "cell_width", "cell_height", "braid", "mazes",
     "dafds_avg_commands", "dafds2_avg_commands", "dafds_median_commands", "dafds2_median_commands",
     "dafds_total_commands", "dafds2_total_commands", "saving_commands", "saving_percent",
     "dafds2_wins", "ties", "dafds2_losses",
@@ -135,10 +135,10 @@ def load_config(path: Path) -> dict[str, Any]:
         names.add(name)
         if case.get("algorithm") not in {"dfs", "prim", "rooms"}:
             raise ValueError(f"cases[{i}].algorithm must be dfs, prim or rooms")
-        for field in ("cell_width", "cell_height"):
+        for field in ("width", "height"):
             value = int(case.get(field, 0))
-            if value < 2:
-                raise ValueError(f"cases[{i}].{field} must be >= 2")
+            if value < 5:
+                raise ValueError(f"cases[{i}].{field} must be >= 5")
         count = int(case.get("count", defaults.get("count", 1)))
         if count < 1:
             raise ValueError(f"cases[{i}].count must be >= 1")
@@ -167,13 +167,13 @@ def resolve_relative_to_root(value: str) -> Path:
 def write_summary(run_rows: list[dict[str, Any]], event_rows: list[dict[str, Any]], output: Path) -> None:
     grouped: dict[tuple[str, str, int, int, int], list[dict[str, Any]]] = defaultdict(list)
     for row in run_rows:
-        key = (row["case_name"], row["generator"], row["cell_width"], row["cell_height"], row["braid"])
+        key = (row["case_name"], row["generator"], row["width"], row["height"], row["braid"])
         grouped[key].append(row)
 
     events_by_group: dict[tuple[str, str, int, int, int], list[dict[str, Any]]] = defaultdict(list)
     for event in event_rows:
-        key = (event["case_name"], event["generator"], event["cell_width"],
-               event["cell_height"], event["braid"])
+        key = (event["case_name"], event["generator"], event["width"],
+               event["height"], event["braid"])
         events_by_group[key].append(event)
 
     result_rows: list[dict[str, Any]] = []
@@ -192,7 +192,9 @@ def write_summary(run_rows: list[dict[str, Any]], event_rows: list[dict[str, Any
         event_count = len(event_items)
         result_rows.append({
             "case_name": key[0], "generator": key[1],
-            "cell_width": key[2], "cell_height": key[3], "braid": key[4],
+            "width": key[2], "height": key[3],
+            "cell_width": int(items[0]["cell_width"]), "cell_height": int(items[0]["cell_height"]),
+            "braid": key[4],
             "mazes": len(items),
             "dafds_avg_commands": round(statistics.mean(d1), 3),
             "dafds2_avg_commands": round(statistics.mean(d2), 3),
@@ -273,8 +275,8 @@ def main() -> int:
         for i, case in enumerate(config["cases"]):
             name = str(case.get("name", f"case_{i + 1}"))
             algorithm = str(case["algorithm"])
-            cell_width = int(case["cell_width"])
-            cell_height = int(case["cell_height"])
+            width = int(case["width"])
+            height = int(case["height"])
             count = int(case.get("count", defaults.get("count", 1)))
             seed = int(case.get("seed", defaults.get("seed", 1)))
             braids = [int(v) for v in case.get("braids", defaults.get("braids", [0]))]
@@ -289,7 +291,7 @@ def main() -> int:
             for braid in braids:
                 plan.append({
                     "case_name": name, "algorithm": algorithm,
-                    "cell_width": cell_width, "cell_height": cell_height,
+                    "width": width, "height": height,
                     "count": count, "seed": seed, "braid": braid,
                     "exit_side": exit_side, "room_density": room_density,
                     "room_min": room_min, "room_max": room_max,
@@ -318,7 +320,7 @@ def main() -> int:
 
                 gen_command = [
                     str(generator), "--algorithm", job["algorithm"],
-                    "--width", str(job["cell_width"]), "--height", str(job["cell_height"]),
+                    "--width", str(job["width"]), "--height", str(job["height"]),
                     "--count", str(job["count"]), "--seed", str(job["seed"]),
                     "--braid", str(job["braid"]), "--exit-side", job["exit_side"],
                     "--format", "ascii", "--out", str(maze_dir),
@@ -364,8 +366,8 @@ def main() -> int:
                     rel_map = str(map_path.relative_to(output)).replace("\\", "/")
                     row = {
                         "case_name": job["case_name"], "generator": job["algorithm"],
-                        "cell_width": job["cell_width"], "cell_height": job["cell_height"],
-                        "map_width": metadata["map_width"], "map_height": metadata["map_height"],
+                        "width": job["width"], "height": job["height"],
+                        "cell_width": metadata["cell_width"], "cell_height": metadata["cell_height"],
                         "braid": job["braid"],
                         "room_density": job["room_density"] if job["algorithm"] == "rooms" else 0,
                         "maze_index": index, "maze_seed": metadata["seed"],
@@ -390,7 +392,7 @@ def main() -> int:
                     for event in events:
                         event_row = {
                             "case_name": job["case_name"], "generator": job["algorithm"],
-                            "cell_width": job["cell_width"], "cell_height": job["cell_height"],
+                            "width": job["width"], "height": job["height"],
                             "braid": job["braid"], "maze_index": index,
                             "maze_seed": metadata["seed"], **event,
                         }
@@ -402,7 +404,7 @@ def main() -> int:
                     status = "better" if saving > 0 else ("tie" if saving == 0 else "worse")
                     print(
                         f"[{completed}/{total}] {job['case_name']} "
-                        f"{job['cell_width']}x{job['cell_height']} cells "
+                        f"{job['width']}x{job['height']} map "
                         f"braid={job['braid']} maze={index}/{job['count']}: "
                         f"{d1['commands']} -> {d2['commands']} ({status})",
                         flush=True,

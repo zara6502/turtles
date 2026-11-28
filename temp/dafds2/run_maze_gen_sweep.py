@@ -137,8 +137,8 @@ def load_config(path: Path) -> dict[str, Any]:
             raise ValueError(f"cases[{i}].algorithm must be dfs, prim or rooms")
         for field in ("width", "height"):
             value = int(case.get(field, 0))
-            if value < 5:
-                raise ValueError(f"cases[{i}].{field} must be >= 5")
+            if value < 3:
+                raise ValueError(f"cases[{i}].{field} must be >= 3")
         count = int(case.get("count", defaults.get("count", 1)))
         if count < 1:
             raise ValueError(f"cases[{i}].count must be >= 1")

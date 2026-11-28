@@ -3,10 +3,12 @@
 #include <chrono>
 #include <cstdint>
 #include <fstream>
+#include <filesystem>
 #include <iomanip>
 #include <iostream>
 #include <limits>
 #include <queue>
+#include <regex>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -464,6 +466,47 @@ DAFds2Result runDAFds2(const Maze& m, const Distances& distances, uint32_t stagn
     return result;
 }
 
+std::string readJsonText(const std::string& path) {
+    std::ifstream in(path, std::ios::binary);
+    if (!in) throw std::runtime_error("cannot open metadata JSON: " + path);
+    return std::string(std::istreambuf_iterator<char>(in), std::istreambuf_iterator<char>());
+}
+
+std::string jsonStringField(const std::string& json, const std::string& key) {
+    const std::regex pattern("\\\"" + key + "\\\"\\s*:\\s*\\\"([^\\\"]*)\\\"");
+    std::smatch match;
+    if (!std::regex_search(json, match, pattern))
+        throw std::runtime_error("metadata JSON is missing string field: " + key);
+    return match[1].str();
+}
+
+uint64_t jsonU64Field(const std::string& json, const std::string& key) {
+    const std::regex pattern("\\\"" + key + "\\\"\\s*:\\s*([0-9]+)");
+    std::smatch match;
+    if (!std::regex_search(json, match, pattern))
+        throw std::runtime_error("metadata JSON is missing integer field: " + key);
+    size_t used = 0;
+    const auto value = std::stoull(match[1].str(), &used);
+    if (used != match[1].str().size())
+        throw std::runtime_error("invalid integer metadata field: " + key);
+    return static_cast<uint64_t>(value);
+}
+
+std::string mapPathFromMetadata(const std::string& metadataPath) {
+    const std::string json = readJsonText(metadataPath);
+    const std::string filename = jsonStringField(json, "map_file");
+    if (filename.empty())
+        throw std::runtime_error("metadata JSON has no ASCII map_file; generate with --format ascii or both");
+    const std::filesystem::path metadata = std::filesystem::absolute(metadataPath);
+    const std::filesystem::path mapPath = metadata.parent_path() / filename;
+    const uint64_t expectedWidth = jsonU64Field(json, "map_width");
+    const uint64_t expectedHeight = jsonU64Field(json, "map_height");
+    const Maze map = Maze::load(mapPath.string());
+    if (map.width != expectedWidth || map.height != expectedHeight)
+        throw std::runtime_error("map dimensions do not match metadata JSON: " + mapPath.string());
+    return mapPath.string();
+}
+
 uint64_t parseU64(const std::string& value, const std::string& option) {
     size_t used = 0;
     const unsigned long long parsed = std::stoull(value, &used);
@@ -472,7 +515,7 @@ uint64_t parseU64(const std::string& value, const std::string& option) {
 }
 
 void usage(const char* exe) {
-    std::cout << "Usage: " << exe << " --maze FILE [--limit N]\n"
+    std::cout << "Usage: " << exe << " (--maze FILE | --maze-json METADATA.json) [--limit N]\n"
               << "Runs DAFds and DAFds2 on the same maze and verifies both paths.\n";
 }
 
@@ -481,6 +524,7 @@ void usage(const char* exe) {
 int main(int argc, char** argv) {
     try {
         std::string mazePath;
+        std::string metadataPath;
         uint32_t stagnationLimit = 1;
         for (int i = 1; i < argc; ++i) {
             const std::string arg = argv[i];
@@ -489,6 +533,7 @@ int main(int argc, char** argv) {
                 return argv[++i];
             };
             if (arg == "--maze") mazePath = value();
+            else if (arg == "--maze-json") metadataPath = value();
             else if (arg == "--limit") {
                 const uint64_t v = parseU64(value(), arg);
                 if (v == 0 || v > std::numeric_limits<uint32_t>::max())
@@ -501,10 +546,11 @@ int main(int argc, char** argv) {
                 throw std::runtime_error("unknown option: " + arg);
             }
         }
-        if (mazePath.empty()) {
+        if (mazePath.empty() == metadataPath.empty()) {
             usage(argv[0]);
             return 2;
         }
+        if (!metadataPath.empty()) mazePath = mapPathFromMetadata(metadataPath);
 
         const Maze maze = Maze::load(mazePath);
         const Distances distances = buildDistances(maze);

@@ -1,0 +1,106 @@
+{
+  "format_version": 1,
+  "name": "maze-gen-dafds-dafds2-comparison",
+  "description": "JSON benchmark plan. width/height are the exact dimensions of the generated ASCII maze file.",
+  "output_dir": "temp/gen/maze_gen_json_sweep",
+  "keep_mazes": true,
+  "solver": {
+    "stagnation_limit": 1
+  },
+  "defaults": {
+    "count": 20,
+    "seed": 20261128,
+    "braids": [
+      0,
+      10,
+      20,
+      35
+    ],
+    "exit_side": "any",
+    "room_density": 40,
+    "room_min": 3,
+    "room_max": 8
+  },
+  "cases": [
+    {
+      "name": "dfs_21x21",
+      "algorithm": "dfs",
+      "width": 21,
+      "height": 21
+    },
+    {
+      "name": "dfs_31x51",
+      "algorithm": "dfs",
+      "width": 31,
+      "height": 51
+    },
+    {
+      "name": "dfs_51x31",
+      "algorithm": "dfs",
+      "width": 51,
+      "height": 31
+    },
+    {
+      "name": "dfs_101x101",
+      "algorithm": "dfs",
+      "width": 101,
+      "height": 101
+    },
+    {
+      "name": "prim_21x21",
+      "algorithm": "prim",
+      "width": 21,
+      "height": 21
+    },
+    {
+      "name": "prim_31x51",
+      "algorithm": "prim",
+      "width": 31,
+      "height": 51
+    },
+    {
+      "name": "prim_51x31",
+      "algorithm": "prim",
+      "width": 51,
+      "height": 31
+    },
+    {
+      "name": "prim_101x101",
+      "algorithm": "prim",
+      "width": 101,
+      "height": 101
+    },
+    {
+      "name": "rooms_21x21",
+      "algorithm": "rooms",
+      "width": 21,
+      "height": 21
+    },
+    {
+      "name": "rooms_31x51",
+      "algorithm": "rooms",
+      "width": 31,
+      "height": 51
+    },
+    {
+      "name": "rooms_51x31",
+      "algorithm": "rooms",
+      "width": 51,
+      "height": 31
+    },
+    {
+      "name": "rooms_101x101",
+      "algorithm": "rooms",
+      "width": 101,
+      "height": 101
+    }
+  ],
+  "_resolved": {
+    "config_file": "C:/work/turtles/temp/dafds2/maze_gen_bench_config.json",
+    "generator": "C:/work/maze-gen/build/maze-gen.exe",
+    "solver": "C:/work/turtles/temp/dafds2/build/maze_gen_bench.exe",
+    "solver_source": "C:/work/turtles/temp/dafds2/maze_gen_bench.cpp",
+    "stagnation_limit": 1,
+    "keep_mazes": true
+  }
+}

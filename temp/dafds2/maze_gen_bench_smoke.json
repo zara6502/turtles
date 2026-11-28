@@ -19,19 +19,19 @@
   },
   "cases": [
     {
-      "name": "dfs_rect_10x20",
+      "name": "dfs_rect_35x63",
       "algorithm": "dfs",
       "width": 35,
       "height": 63
     },
     {
-      "name": "prim_rect_20x10",
+      "name": "prim_rect_63x35",
       "algorithm": "prim",
       "width": 63,
       "height": 35
     },
     {
-      "name": "rooms_square_10x10",
+      "name": "rooms_square_35x35",
       "algorithm": "rooms",
       "width": 35,
       "height": 35

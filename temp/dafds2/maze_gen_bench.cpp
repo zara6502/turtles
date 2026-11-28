@@ -5,6 +5,7 @@
 #include <fstream>
 #include <filesystem>
 #include <iomanip>
+#include <iterator>
 #include <iostream>
 #include <limits>
 #include <queue>
@@ -502,7 +503,7 @@ std::string mapPathFromMetadata(const std::string& metadataPath) {
     const uint64_t expectedWidth = jsonU64Field(json, "map_width");
     const uint64_t expectedHeight = jsonU64Field(json, "map_height");
     const Maze map = Maze::load(mapPath.string());
-    if (map.width != expectedWidth || map.height != expectedHeight)
+    if (static_cast<uint64_t>(map.width) != expectedWidth || static_cast<uint64_t>(map.height) != expectedHeight)
         throw std::runtime_error("map dimensions do not match metadata JSON: " + mapPath.string());
     return mapPath.string();
 }

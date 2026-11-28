@@ -24,7 +24,8 @@ WORKSPACE_ROOT = TURTLES_ROOT.parent
 SOURCE_FILE = SCRIPT_DIR / "maze_gen_bench.cpp"
 
 RUN_FIELDS = [
-    "generator", "width", "height", "braid", "room_density", "maze_index",
+    "generator", "width", "height", "generator_width", "generator_height",
+    "braid", "room_density", "maze_index",
     "maze_seed", "exit_side", "passages", "map_sha256", "maze_file", "free_cells",
     "dafds_commands", "dafds_adaptive", "dafds_fallbacks", "dafds_ms", "dafds_verify",
     "dafds2_commands", "dafds2_adaptive", "dafds2_fallbacks", "dafds2_ms", "dafds2_verify",
@@ -196,7 +197,7 @@ def main() -> int:
     parser.add_argument("--generator", help="path to maze-gen executable; auto-detected beside turtles repo by default")
     parser.add_argument("--solver", help="use an already-built benchmark executable instead of compiling")
     parser.add_argument("--compiler", default=os.environ.get("CXX", "g++"), help="C++ compiler command (default: g++)")
-    parser.add_argument("--sizes", default="21,31,51,101", help="comma-separated logical maze sizes")
+    parser.add_argument("--sizes", default="21,31,51,101", help="comma-separated exported map dimensions (odd numbers, e.g. 21,31,51,101)")
     parser.add_argument("--count", type=int, default=20, help="mazes per generator/size/braid combination")
     parser.add_argument("--braids", default="0,10,20,35", help="comma-separated maze-gen braid percentages")
     parser.add_argument("--algorithms", default="dfs,prim,rooms", help="comma-separated maze-gen algorithms")
@@ -220,8 +221,8 @@ def main() -> int:
         parser.error("--algorithms must contain dfs, prim and/or rooms")
     if len(set(algorithms)) != len(algorithms):
         parser.error("--algorithms must not contain duplicates")
-    if any(x < 2 for x in sizes):
-        parser.error("all sizes must be >= 2")
+    if any(x < 5 or x % 2 == 0 for x in sizes):
+        parser.error("--sizes must be odd exported-map dimensions >= 5")
     if args.count < 1 or args.limit < 1:
         parser.error("--count and --limit must be >= 1")
     if any(x < 0 or x > 100 for x in braids):
@@ -251,11 +252,13 @@ def main() -> int:
     (output / "errors.log").write_text("", encoding="utf-8")
 
     config = {
-        "build_id": "maze-gen-dafds-dafds2-bench-20261128",
+        "build_id": "maze-gen-dafds-dafds2-bench-v2-20261128",
         "generator": str(generator),
         "solver": str(solver),
         "solver_source": str(SOURCE_FILE),
         "sizes": sizes,
+        "size_semantics": "exported ASCII map dimensions",
+        "maze_gen_cell_sizes": [(x - 1) // 2 for x in sizes],
         "count_per_combination": args.count,
         "braids": braids,
         "algorithms": algorithms,
@@ -286,6 +289,7 @@ def main() -> int:
 
             for algorithm in algorithms:
                 for size in sizes:
+                    generator_cells = (size - 1) // 2
                     for braid in braids:
                         combo_name = f"{size}x{size}_b{braid}"
                         if args.keep_mazes:
@@ -297,7 +301,7 @@ def main() -> int:
 
                         gen_command = [
                             str(generator), "--algorithm", algorithm,
-                            "--width", str(size), "--height", str(size),
+                            "--width", str(generator_cells), "--height", str(generator_cells),
                             "--count", str(args.count), "--seed", str(args.seed),
                             "--braid", str(braid), "--exit-side", args.exit_side,
                             "--format", "ascii", "--out", str(maze_dir),
@@ -336,6 +340,8 @@ def main() -> int:
                                 "generator": algorithm,
                                 "width": size,
                                 "height": size,
+                                "generator_width": generator_cells,
+                                "generator_height": generator_cells,
                                 "braid": braid,
                                 "room_density": args.room_density if algorithm == "rooms" else 0,
                                 "maze_index": index,

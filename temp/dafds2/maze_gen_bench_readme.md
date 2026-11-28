@@ -28,12 +28,12 @@ The benchmark compiles maze_gen_bench.cpp automatically with g++.
 Default test matrix:
 
 - Generators: DFS, Prim, Rooms
-- Logical sizes: 21, 31, 51, 101
+- Exported ASCII map sizes: 21×21, 31×31, 51×51, 101×101
 - Braiding: 0, 10, 20, 35 percent
 - 20 maps per combination
 - DAFds and DAFds2 both use stagnation-limit 1
 
-That is 960 maps total. Both algorithms are run against the same generated map. The S marker is treated as an ordinary free cell: all traversable cells except E are initial turtle positions.
+That is 960 maps total. The sizes refer to the final ASCII map dimensions. Since maze-gen accepts logical cell dimensions and exports a (2×width+1)×(2×height+1) map, the script converts 21/31/51/101 into 10/15/25/50 generator cells. Both algorithms are run against the same generated map. The S marker is treated as an ordinary free cell: all traversable cells except E are initial turtle positions.
 
 ## Quick smoke run
 
@@ -47,7 +47,7 @@ This runs six maps: two each from DFS, Prim and Rooms.
 
 Examples:
 
-- --sizes 21,31,51,101
+- --sizes 21,31,51,101 (final exported map dimensions; must be odd)
 - --count 20
 - --braids 0,10,20,35
 - --algorithms dfs,prim,rooms

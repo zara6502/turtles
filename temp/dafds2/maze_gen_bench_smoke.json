@@ -1,0 +1,40 @@
+{
+  "format_version": 1,
+  "name": "maze-gen-benchmark-smoke",
+  "output_dir": "temp/gen/maze_gen_json_smoke",
+  "keep_mazes": true,
+  "solver": {
+    "stagnation_limit": 1
+  },
+  "defaults": {
+    "count": 2,
+    "seed": 20261128,
+    "braids": [
+      0
+    ],
+    "exit_side": "any",
+    "room_density": 40,
+    "room_min": 3,
+    "room_max": 8
+  },
+  "cases": [
+    {
+      "name": "dfs_rect_10x20",
+      "algorithm": "dfs",
+      "cell_width": 10,
+      "cell_height": 20
+    },
+    {
+      "name": "prim_rect_20x10",
+      "algorithm": "prim",
+      "cell_width": 20,
+      "cell_height": 10
+    },
+    {
+      "name": "rooms_square_10x10",
+      "algorithm": "rooms",
+      "cell_width": 10,
+      "cell_height": 10
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "format_version": 1,
+  "name": "maze-gen-dafds-dafds2-comparison",
+  "description": "JSON benchmark plan. cell_width/cell_height are logical maze cells; the ASCII map dimensions are 2*cell_width+1 by 2*cell_height+1.",
+  "output_dir": "temp/gen/maze_gen_json_sweep",
+  "keep_mazes": true,
+  "solver": {
+    "stagnation_limit": 1
+  },
+  "defaults": {
+    "count": 20,
+    "seed": 20261128,
+    "braids": [
+      0,
+      10,
+      20,
+      35
+    ],
+    "exit_side": "any",
+    "room_density": 40,
+    "room_min": 3,
+    "room_max": 8
+  },
+  "cases": [
+    {
+      "name": "dfs_21x21",
+      "algorithm": "dfs",
+      "cell_width": 21,
+      "cell_height": 21
+    },
+    {
+      "name": "dfs_31x51",
+      "algorithm": "dfs",
+      "cell_width": 31,
+      "cell_height": 51
+    },
+    {
+      "name": "dfs_51x31",
+      "algorithm": "dfs",
+      "cell_width": 51,
+      "cell_height": 31
+    },
+    {
+      "name": "dfs_101x101",
+      "algorithm": "dfs",
+      "cell_width": 101,
+      "cell_height": 101
+    },
+    {
+      "name": "prim_21x21",
+      "algorithm": "prim",
+      "cell_width": 21,
+      "cell_height": 21
+    },
+    {
+      "name": "prim_31x51",
+      "algorithm": "prim",
+      "cell_width": 31,
+      "cell_height": 51
+    },
+    {
+      "name": "prim_51x31",
+      "algorithm": "prim",
+      "cell_width": 51,
+      "cell_height": 31
+    },
+    {
+      "name": "prim_101x101",
+      "algorithm": "prim",
+      "cell_width": 101,
+      "cell_height": 101
+    },
+    {
+      "name": "rooms_21x21",
+      "algorithm": "rooms",
+      "cell_width": 21,
+      "cell_height": 21
+    },
+    {
+      "name": "rooms_31x51",
+      "algorithm": "rooms",
+      "cell_width": 31,
+      "cell_height": 51
+    },
+    {
+      "name": "rooms_51x31",
+      "algorithm": "rooms",
+      "cell_width": 51,
+      "cell_height": 31
+    },
+    {
+      "name": "rooms_101x101",
+      "algorithm": "rooms",
+      "cell_width": 101,
+      "cell_height": 101
+    }
+  ]
+}

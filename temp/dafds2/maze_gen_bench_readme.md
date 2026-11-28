@@ -19,7 +19,7 @@ From the turtles repository root:
     git pull
     python temp/dafds2/run_maze_gen_sweep.py --config temp/dafds2/maze_gen_bench_smoke.json --out temp/gen/maze_gen_json_smoke
 
-The smoke plan creates two mazes for each case: 35×63, 63×35 and 35×35.
+The smoke plan creates two mazes for each case: 36×64, 64×36 and 35×35. It covers even rectangular dimensions as well.
 
 ## Full run
 

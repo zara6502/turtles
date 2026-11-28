@@ -25,7 +25,7 @@ SOURCE_FILE = SCRIPT_DIR / "maze_gen_bench.cpp"
 DEFAULT_CONFIG = SCRIPT_DIR / "maze_gen_bench_config.json"
 
 RUN_FIELDS = [
-    "case_name", "generator", "width", "height", "cell_width", "cell_height",
+    "case_name", "generator", "width", "height",
     "braid", "room_density", "maze_index", "maze_seed", "exit_side", "passages",
     "map_sha256", "metadata_file", "map_file", "free_cells",
     "dafds_commands", "dafds_adaptive", "dafds_fallbacks", "dafds_ms", "dafds_verify",
@@ -37,7 +37,7 @@ EVENT_FIELDS = [
     "maze_index", "maze_seed", "episode", "first_event_step", "event_type",
 ]
 SUMMARY_FIELDS = [
-    "case_name", "generator", "width", "height", "cell_width", "cell_height", "braid", "mazes",
+    "case_name", "generator", "width", "height", "braid", "mazes",
     "dafds_avg_commands", "dafds2_avg_commands", "dafds_median_commands", "dafds2_median_commands",
     "dafds_total_commands", "dafds2_total_commands", "saving_commands", "saving_percent",
     "dafds2_wins", "ties", "dafds2_losses",
@@ -192,9 +192,7 @@ def write_summary(run_rows: list[dict[str, Any]], event_rows: list[dict[str, Any
         event_count = len(event_items)
         result_rows.append({
             "case_name": key[0], "generator": key[1],
-            "width": key[2], "height": key[3],
-            "cell_width": int(items[0]["cell_width"]), "cell_height": int(items[0]["cell_height"]),
-            "braid": key[4],
+            "width": key[2], "height": key[3], "braid": key[4],
             "mazes": len(items),
             "dafds_avg_commands": round(statistics.mean(d1), 3),
             "dafds2_avg_commands": round(statistics.mean(d2), 3),
@@ -366,8 +364,7 @@ def main() -> int:
                     rel_map = str(map_path.relative_to(output)).replace("\\", "/")
                     row = {
                         "case_name": job["case_name"], "generator": job["algorithm"],
-                        "width": job["width"], "height": job["height"],
-                        "cell_width": metadata["cell_width"], "cell_height": metadata["cell_height"],
+                        "width": metadata["width"], "height": metadata["height"],
                         "braid": job["braid"],
                         "room_density": job["room_density"] if job["algorithm"] == "rooms" else 0,
                         "maze_index": index, "maze_seed": metadata["seed"],

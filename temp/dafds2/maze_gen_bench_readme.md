@@ -1,77 +1,83 @@
-# DAFds vs DAFds2 benchmark with maze-gen
+# DAFds vs DAFds2 benchmark — JSON plan
 
-This benchmark generates maps through the sibling maze-gen repository and runs both solvers on every exact same map.
+The benchmark is driven by a JSON file. Each case has its own generator, width, height, count, seed and braid settings. Rectangular mazes are first-class cases.
 
-## Expected workspace layout
+## Build
 
-    workspace/
-      maze-gen/
-        build/maze-gen.exe
-      turtles/
-        temp/dafds2/
-          maze_gen_bench.cpp
-          run_maze_gen_sweep.py
+Update and rebuild maze-gen so its metadata contains the map_file field:
 
-Build maze-gen once from its repository:
-
-    cmake -S . -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
+    cd /c/work/maze-gen
+    git pull
     cmake --build build -j
 
-## Run
+The benchmark solver is compiled automatically by the Python runner with g++.
+
+## Quick test
 
 From the turtles repository root:
 
-    python temp/dafds2/run_maze_gen_sweep.py
+    git pull
+    python temp/dafds2/run_maze_gen_sweep.py --config temp/dafds2/maze_gen_bench_smoke.json --out temp/gen/maze_gen_json_smoke
 
-The benchmark compiles maze_gen_bench.cpp automatically with g++.
+The smoke plan runs two mazes for each of three cases, including 10×20 and 20×10 rectangular logical grids.
 
-Default test matrix:
+## Full run
 
-- Generators: DFS, Prim, Rooms
-- Exported ASCII map sizes: 21×21, 31×31, 51×51, 101×101
-- Braiding: 0, 10, 20, 35 percent
-- 20 maps per combination
-- DAFds and DAFds2 both use stagnation-limit 1
+    python temp/dafds2/run_maze_gen_sweep.py --config temp/dafds2/maze_gen_bench_config.json
 
-That is 960 maps total. The sizes refer to the final ASCII map dimensions. Since maze-gen accepts logical cell dimensions and exports a (2×width+1)×(2×height+1) map, the script converts 21/31/51/101 into 10/15/25/50 generator cells. Both algorithms are run against the same generated map. The S marker is treated as an ordinary free cell: all traversable cells except E are initial turtle positions.
+The checked-in plan contains 12 explicit cases: DFS, Prim and Rooms, each with square and rectangular dimensions. Every case uses the braid values and map count specified in the same JSON file. Change that file to add any dimensions, aspect ratios, seeds, algorithms or counts. No code change is needed.
 
-## Quick smoke run
+## JSON dimensions
 
-    python temp/dafds2/run_maze_gen_sweep.py --sizes 21 --count 2 --braids 0 --limit 1 --out temp/dafds2/maze_gen_smoke
+A case looks like this:
 
-This runs six maps: two each from DFS, Prim and Rooms.
+    {
+      "name": "prim_wide",
+      "algorithm": "prim",
+      "cell_width": 31,
+      "cell_height": 61,
+      "count": 20,
+      "braids": [0, 15, 35]
+    }
 
-## Useful options
+cell_width and cell_height are independent logical maze dimensions. maze-gen exports a wall-and-passage ASCII grid with dimensions:
 
-    python temp/dafds2/run_maze_gen_sweep.py --help
+    map_width  = 2 * cell_width  + 1
+    map_height = 2 * cell_height + 1
 
-Examples:
+The generator records both logical and exported dimensions in each JSON metadata file, plus map_file, which points to the paired .txt map.
 
-- --sizes 21,31,51,101 (final exported map dimensions; must be odd)
-- --count 20
-- --braids 0,10,20,35
-- --algorithms dfs,prim,rooms
-- --limit 1
-- --room-density 40 --room-min 3 --room-max 8
-- --seed 20261128
-- --keep-mazes to retain generated .txt and .json files
-- --generator PATH when maze-gen is not in the expected sibling directory
-- --solver PATH to use an already compiled benchmark executable
+## Input passed to the solver
+
+The benchmark runner passes each generated maze_XXXXXX.json to the C++ solver using --maze-json. The solver reads map_file from that JSON, opens the matching map, checks its dimensions against map_width/map_height, and then runs DAFds and DAFds2 on that exact map.
+
+## Config structure
+
+- defaults: common count, seed, braids, exit side and Rooms parameters.
+- solver.stagnation_limit: same limit for both algorithms.
+- cases: array of independent jobs with name, algorithm, cell_width and cell_height. Each case may override defaults.
+- keep_mazes: retain both JSON descriptions and ASCII maps; true by default.
+- output_dir: base output directory. The runner appends a timestamp to avoid overwriting an earlier run.
 
 ## Results
 
-Each run creates a timestamped output folder under temp/dafds2/ containing:
+The output directory contains:
 
-- runs.csv — one record per map, including command counts, timings, verification and map SHA-256
-- summary.csv — averages, medians, total command savings and W/T/L by generator, size and braid percentage
-- fallback_events.csv — DAFds2 fallback episode number, step of first merge/exit event and event type
-- config.json — complete test parameters
-- errors.log — errors, empty on successful completion
+- runs.csv — one record per maze, including both command counts, timings, verification and map SHA-256.
+- summary.csv — totals, averages, medians, savings and W/T/L by case and braid.
+- fallback_events.csv — each DAFds2 fallback and the first merge/exit event.
+- config.json — the exact plan and resolved executable paths.
+- errors.log — empty on successful completion.
+- mazes/<case>/braid_<percent>/*.json and *.txt — source maze files when keep_mazes is true.
 
-By default, temporary generated maps are deleted after they have been solved. The seed and map hash are stored in runs.csv; the maps can be reproduced with the saved configuration.
+## Options
 
-To publish results for analysis:
+    python temp/dafds2/run_maze_gen_sweep.py --help
 
-    git add temp/dafds2/maze_gen_sweep_*
-    git commit -m "Add maze-gen DAFds benchmark results"
+Options are intentionally limited to paths and compiler selection. The benchmark matrix belongs in JSON, not in command-line lists.
+
+To publish a run:
+
+    git add temp/gen/<run-folder>
+    git commit -m "Add JSON-driven maze-gen benchmark results"
     git push origin main

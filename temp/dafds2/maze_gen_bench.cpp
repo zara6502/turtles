@@ -500,8 +500,8 @@ std::string mapPathFromMetadata(const std::string& metadataPath) {
         throw std::runtime_error("metadata JSON has no ASCII map_file; generate with --format ascii or both");
     const std::filesystem::path metadata = std::filesystem::absolute(metadataPath);
     const std::filesystem::path mapPath = metadata.parent_path() / filename;
-    const uint64_t expectedWidth = jsonU64Field(json, "map_width");
-    const uint64_t expectedHeight = jsonU64Field(json, "map_height");
+    const uint64_t expectedWidth = jsonU64Field(json, "width");
+    const uint64_t expectedHeight = jsonU64Field(json, "height");
     const Maze map = Maze::load(mapPath.string());
     if (static_cast<uint64_t>(map.width) != expectedWidth || static_cast<uint64_t>(map.height) != expectedHeight)
         throw std::runtime_error("map dimensions do not match metadata JSON: " + mapPath.string());
